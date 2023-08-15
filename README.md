@@ -31,3 +31,9 @@ server.listen(PORT);
 5. 创建app.js编写代码
 ```
 
+6. 安装并连接mysql
+ - 本地安装mysql - https://www.runoob.com/mysql/mysql-install.html
+ - 使用navicat创建数据库
+ - 编写配置信息 - conf/db.js
+ - 下载mysql - npm install mysql --save
+ - node链接mysql - db/mysql.js
