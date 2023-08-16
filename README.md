@@ -37,3 +37,56 @@ server.listen(PORT);
  - 编写配置信息 - conf/db.js
  - 下载mysql - npm install mysql --save
  - node链接mysql - db/mysql.js
+
+7. 处理请求url
+```
+const querystring = require('querystring');
+
+// 设置返回格式 JSON
+res.setHeader('Content-type', 'application/json');
+
+// 获取 path
+const url = req.url;
+req.path = url.split('?')[0];
+
+// 解析 query
+req.query = querystring.parse(url.split('?')[1]);
+
+8. 处理请求路由
+```
+const handleBlogRouter = (req, res) => {
+    const method = req.method
+    console.log(method)
+    const id = req.query.id
+
+    // 获取博客列表
+    if (method === 'GET' && req.path === '/api/blog/list') {
+        const author = req.query.author || '';
+        const keyword = req.query.keyword || '';
+
+        const result = getList(author, keyword)
+        return result.then(listData => {
+            console.log(listData);
+        })
+    }
+}
+
+9. 查询数据库
+```
+const { exec } = require('../db/mysql')
+
+const getList = (author, keyword) => {
+    let sql = `select * from blogs where 1=1 `
+    if (author) {
+        sql += `and author='${author}' `
+    }
+    if (keyword) {
+        sql += `and title like '%${keyword}%' `
+    }
+    sql += `order by createtime desc;`
+
+    // 返回 promise
+    return exec(sql)
+}
+
+module.exports = { getList }
