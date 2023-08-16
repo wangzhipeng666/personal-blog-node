@@ -95,3 +95,35 @@ module.exports = { getList }
 10. 其他
  - 使用navicat管理数据
  - 使用postman模拟接口请求
+
+11. 接口返回数据统一处理
+```
+class BaseModel {
+    constructor(data, message) {
+        if (typeof data === 'string') {
+            this.message = data;
+            data = null;
+            message = null;
+        }
+        if (data) {
+            this.data = data;
+        }
+        if (message) {
+            this.message = message;
+        }
+    }
+}
+
+class SuccessModel extends BaseModel {
+    constructor(data, message) {
+        super(data, message);
+        this.errno = 0;
+    }
+}
+
+class ErrorModel extends BaseModel {
+    constructor(data, message) {
+        super(data, message);
+        this.errno = -1;
+    }
+}

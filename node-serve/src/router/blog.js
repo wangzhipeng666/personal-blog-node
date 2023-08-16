@@ -1,4 +1,5 @@
 const { getList } = require('../controller/blog');
+const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 const handleBlogRouter = (req, res) => {
     const method = req.method
@@ -12,7 +13,7 @@ const handleBlogRouter = (req, res) => {
 
         const result = getList(author, keyword)
         return result.then(listData => {
-            console.log(listData);
+            return new SuccessModel(listData);
         })
     }
 }

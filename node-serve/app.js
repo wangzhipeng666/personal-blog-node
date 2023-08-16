@@ -17,11 +17,12 @@ const serverHandle = (req, res) => {
     const blogResult = handleBlogRouter(req, res);
     if (blogResult) {
         blogResult.then(blogData => {
+            console.log(JSON.stringify(blogData))
             res.end(
                 JSON.stringify(blogData)
             )
-            return
         })
+        return
     }
 
     // 未命中路由，返回 404
