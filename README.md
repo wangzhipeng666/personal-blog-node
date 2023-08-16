@@ -30,6 +30,7 @@ server.listen(PORT);
 
 5. 创建app.js编写代码
 ```
+console.log('测试一下')
 
 6. 安装并连接mysql
  - 本地安装mysql - https://www.runoob.com/mysql/mysql-install.html
@@ -90,3 +91,7 @@ const getList = (author, keyword) => {
 }
 
 module.exports = { getList }
+
+10. 其他
+ - 使用navicat管理数据
+ - 使用postman模拟接口请求
