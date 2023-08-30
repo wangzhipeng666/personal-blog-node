@@ -5,6 +5,12 @@ const serverHandle = (req, res) => {
     console.log(req.url);
     // 设置返回格式 JSON
     res.setHeader('Content-type', 'application/json');
+    // 设置允许跨域的源
+    res.setHeader("Access-Control-Allow-Origin","*");  
+    // 设置cookie允许跨域
+    res.setHeader("Access-Control-Allow-Credentials", true);  
+    // 设置可以跨域的请求方法
+    res.setHeader("Access-Control-Request-Method", "PUT,POST,GET,DELETE,OPTIONS");
 
     // 获取 path
     const url = req.url;
