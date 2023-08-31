@@ -2,7 +2,6 @@ const querystring = require('querystring');
 const handleBlogRouter = require('./src/router/blog');
 
 const serverHandle = (req, res) => {
-    console.log(req.url);
     // 设置返回格式 JSON
     res.setHeader('Content-type', 'application/json');
     // 设置允许跨域的源
@@ -12,6 +11,12 @@ const serverHandle = (req, res) => {
     // 设置可以跨域的请求方法
     res.setHeader("Access-Control-Request-Method", "PUT,POST,GET,DELETE,OPTIONS");
 
+    // 处理跨域预检请求（OPTIONS 请求）
+    // if (req.method === 'OPTIONS') {
+    //     res.writeHead(200);
+    //     res.end();
+    //     return;
+    // }
     // 获取 path
     const url = req.url;
     req.path = url.split('?')[0];
@@ -23,7 +28,6 @@ const serverHandle = (req, res) => {
     const blogResult = handleBlogRouter(req, res);
     if (blogResult) {
         blogResult.then(blogData => {
-            console.log(JSON.stringify(blogData))
             res.end(
                 JSON.stringify(blogData)
             )

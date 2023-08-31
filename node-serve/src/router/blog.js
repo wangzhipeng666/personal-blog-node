@@ -3,7 +3,6 @@ const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 const handleBlogRouter = (req, res) => {
     const method = req.method
-    console.log(method)
     const id = req.query.id
 
     // 获取博客列表
