@@ -4,10 +4,12 @@
 1. 安装nodemon启动node服务 
 ```
 npm install nodemon --save-dev
+```
 
 2. 安装cross-env配置环境变量
 ```
 npm install cross-env --save
+```
 
 3. 配置启动命令
 ```
@@ -17,6 +19,7 @@ npm install cross-env --save
     "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js",
     "prd": "cross-env NODE_ENV=production nodemon ./bin/www.js"
 },
+```
 
 4. 创建www.js配置服务
 ```
@@ -27,10 +30,12 @@ const serverHandle = require('../app');
 
 const server = http.createServer(serverHandle);
 server.listen(PORT);
+```
 
 5. 创建app.js编写代码
 ```
 console.log('测试一下')
+```
 
 6. 安装并连接mysql
  - 本地安装mysql - https://www.runoob.com/mysql/mysql-install.html
@@ -52,12 +57,12 @@ req.path = url.split('?')[0];
 
 // 解析 query
 req.query = querystring.parse(url.split('?')[1]);
+```
 
 8. 处理请求路由
 ```
 const handleBlogRouter = (req, res) => {
     const method = req.method
-    console.log(method)
     const id = req.query.id
 
     // 获取博客列表
@@ -71,6 +76,7 @@ const handleBlogRouter = (req, res) => {
         })
     }
 }
+```
 
 9. 查询数据库
 ```
@@ -91,6 +97,7 @@ const getList = (author, keyword) => {
 }
 
 module.exports = { getList }
+```
 
 10. 其他
  - 使用navicat管理数据
@@ -127,3 +134,16 @@ class ErrorModel extends BaseModel {
         this.errno = -1;
     }
 }
+```
+
+12. 配置跨域资源共享CORS
+```
+// 设置返回格式 JSON
+res.setHeader('Content-type', 'application/json');
+// 设置允许跨域的源
+res.setHeader("Access-Control-Allow-Origin","*");  
+// 设置cookie允许跨域
+res.setHeader("Access-Control-Allow-Credentials", true);  
+// 设置可以跨域的请求方法
+res.setHeader("Access-Control-Request-Method", "PUT,POST,GET,DELETE,OPTIONS");
+```
