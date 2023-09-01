@@ -31,6 +31,8 @@ const serverHandle = (req, res) => {
             res.end(
                 JSON.stringify(blogData)
             )
+            // res.statusCode = 500;
+            // res.end('服务器内部错误');
         })
         return
     }
