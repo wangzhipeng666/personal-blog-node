@@ -10,6 +10,10 @@ const serverHandle = (req, res) => {
     res.setHeader("Access-Control-Allow-Credentials", true);
     // 设置可以跨域的请求方法
     res.setHeader("Access-Control-Request-Method", "PUT,POST,GET,DELETE,OPTIONS");
+    // 设置允许跨域的响应头
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    // 设置可以跨域的响应方法
+    res.setHeader("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
 
     // 处理跨域预检请求（OPTIONS 请求）
     if (req.method === 'OPTIONS') {
