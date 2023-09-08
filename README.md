@@ -147,3 +147,19 @@ res.setHeader("Access-Control-Allow-Credentials", true);  
 // 设置可以跨域的请求方法
 res.setHeader("Access-Control-Request-Method", "PUT,POST,GET,DELETE,OPTIONS");
 ```
+13. 解决跨域问题
+对于前端的复杂请求，需要对响应头进行配置以及处理跨域预检请求
+```
+// 设置允许跨域的响应头
+res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+// 设置可以跨域的响应方法
+res.setHeader("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+
+// 处理跨域预检请求（OPTIONS 请求）
+if (req.method === 'OPTIONS') {
+    res.writeHead(200);
+    res.end();
+    return;
+}
+```
+相关文章：https://cloud.tencent.com/developer/article/1964217
