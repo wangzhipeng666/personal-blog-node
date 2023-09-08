@@ -1,4 +1,4 @@
-const { getList } = require('../controller/blog');
+const { getList, newBlog } = require('../controller/blog');
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 const handleBlogRouter = (req, res) => {
@@ -13,6 +13,14 @@ const handleBlogRouter = (req, res) => {
         return result.then(listData => {
             return new SuccessModel(listData);
         })
+    }
+
+    // 新建博客
+    if (method === 'POST' && req.path === 'api/blog/new') {
+        const result = newBlog(req.body)
+        return result.then(data => {
+            return new SuccessModel(data)
+        }) 
     }
 }
 

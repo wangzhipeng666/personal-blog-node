@@ -7,16 +7,16 @@ const serverHandle = (req, res) => {
     // 设置允许跨域的源
     res.setHeader("Access-Control-Allow-Origin","*");  
     // 设置cookie允许跨域
-    res.setHeader("Access-Control-Allow-Credentials", true);  
+    res.setHeader("Access-Control-Allow-Credentials", true);
     // 设置可以跨域的请求方法
     res.setHeader("Access-Control-Request-Method", "PUT,POST,GET,DELETE,OPTIONS");
 
     // 处理跨域预检请求（OPTIONS 请求）
-    // if (req.method === 'OPTIONS') {
-    //     res.writeHead(200);
-    //     res.end();
-    //     return;
-    // }
+    if (req.method === 'OPTIONS') {
+        res.writeHead(200);
+        res.end();
+        return;
+    }
     // 获取 path
     const url = req.url;
     req.path = url.split('?')[0];
