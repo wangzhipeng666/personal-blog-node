@@ -163,3 +163,21 @@ if (req.method === 'OPTIONS') {
 }
 ```
 相关文章：https://cloud.tencent.com/developer/article/1964217
+13. 处理 POST 请求中的请求体数据
+问题：通过post发送请求在res.body获取不到数据
+解决方法：
+ - 编写请求体解析逻辑
+ ```
+ let postData = ''
+    req.on('data', chunk => {
+        postData += chunk.toString()
+    })
+    req.on('end', () => {
+        if (!postData) {
+            resolve({})
+            return
+        }
+        resolve(JSON.parse(postData))
+    })
+ ```
+ - 使用框架（express、koa）中间件
