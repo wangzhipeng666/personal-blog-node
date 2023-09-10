@@ -181,3 +181,18 @@ if (req.method === 'OPTIONS') {
     })
  ```
  - 使用框架（express、koa）中间件
+14. 后端解决cookie导致跨域问题
+问题：前端携带cookie请求接口时，会导致跨域问题
+解决：允许跨域的源不能为'*',设置cookie允许跨域
+```
+// 设置允许跨域的源
+res.setHeader("Access-Control-Allow-Origin",req.headers.origin);
+// 设置cookie允许跨域
+res.setHeader("Access-Control-Allow-Credentials", true);
+```
+14. 后端操作cookie
+- httpOnly可以进行限制，防止前端修改cookie信息
+- expires设置过期时间
+```
+res.setHeader('Set-Cookie', `username=${username}; httpOnly; expires=${getCookieExpires()}`)
+```
