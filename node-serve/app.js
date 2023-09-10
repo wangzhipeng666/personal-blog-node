@@ -1,5 +1,14 @@
 const querystring = require('querystring');
 const handleBlogRouter = require('./src/router/blog');
+const handleUserRouter = require('./src/router/user');
+
+// 获取 cookie 的过期时间
+const getCookieExpires = () => {
+    const d = new Date()
+    d.setTime(d.getTime() + (24 * 60 * 60 * 1000))
+    return d.toGMTString()
+
+}
 
 // 用于处理post数据
 const getPostData = (req) => {
@@ -31,7 +40,7 @@ const serverHandle = (req, res) => {
     // 设置返回格式 JSON
     res.setHeader('Content-type', 'application/json');
     // 设置允许跨域的源
-    res.setHeader("Access-Control-Allow-Origin","*");  
+    res.setHeader("Access-Control-Allow-Origin",req.headers.origin);
     // 设置cookie允许跨域
     res.setHeader("Access-Control-Allow-Credentials", true);
     // 设置可以跨域的请求方法
@@ -50,24 +59,49 @@ const serverHandle = (req, res) => {
     // 获取 path
     const url = req.url;
     req.path = url.split('?')[0];
-    console.log(req.path, 'path')
 
     // 解析 query
     req.query = querystring.parse(url.split('?')[1]);
-    console.log(req.query, 'query')
+
+    // 解析 cookie
+    console.log(req.headers.cookie, 'cookie')
+    req.cookie = {}
+    const cookieStr = req.headers.cookie || ''
+    cookieStr.split(';').forEach(item => {
+        if (!item) {
+            return
+        }
+        const arr = item.split('=')
+        const key = arr[0].trim()
+        const val = arr[1].trim()
+        req.cookie[key] = val
+    })
+
+    const username = req.cookie.username
 
     getPostData(req).then(postData => {
         req.body = postData
-
         // 处理路由
         const blogResult = handleBlogRouter(req, res);
         if (blogResult) {
             blogResult.then(blogData => {
+                res.setHeader('Set-Cookie', `username=${username}; httpOnly; expires=${getCookieExpires()}`)
                 res.end(
                     JSON.stringify(blogData)
                 )
                 // res.statusCode = 500;
                 // res.end('服务器内部错误');
+            })
+            return
+        }
+
+        const userResult = handleUserRouter(req, res);
+        if (userResult) {
+            userResult.then(userData => {
+                res.setHeader('Set-Cookie', `username=${username}; httpOnly; expires=${getCookieExpires()}`)
+                res.end(
+                    JSON.stringify(userData)
+                )
             })
             return
         }
