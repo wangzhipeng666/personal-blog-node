@@ -10,6 +10,9 @@ const getCookieExpires = () => {
 
 }
 
+// session 数据
+const SESSION_DATA = {}
+
 // 用于处理post数据
 const getPostData = (req) => {
     const promise = new Promise((resolve, reject) => {
@@ -64,7 +67,6 @@ const serverHandle = (req, res) => {
     req.query = querystring.parse(url.split('?')[1]);
 
     // 解析 cookie
-    console.log(req.headers.cookie, 'cookie')
     req.cookie = {}
     const cookieStr = req.headers.cookie || ''
     cookieStr.split(';').forEach(item => {
@@ -77,7 +79,19 @@ const serverHandle = (req, res) => {
         req.cookie[key] = val
     })
 
-    const username = req.cookie.username
+    // 解析 session
+    let needSetCookie = false
+    let userId = req.cookie.userid
+    if (userId) {
+        if (!SESSION_DATA[userId]) {
+            SESSION_DATA[userId] = {}
+        }
+    } else {
+        needSetCookie = true
+        userId = `${Date.now()}_${Math.random()}`
+        SESSION_DATA[userId] = {}
+    }
+    req.session = SESSION_DATA[userId]
 
     getPostData(req).then(postData => {
         req.body = postData
@@ -85,7 +99,9 @@ const serverHandle = (req, res) => {
         const blogResult = handleBlogRouter(req, res);
         if (blogResult) {
             blogResult.then(blogData => {
-                res.setHeader('Set-Cookie', `username=${username}; httpOnly; expires=${getCookieExpires()}`)
+                if (needSetCookie) {
+                    res.setHeader('Set-Cookie', `userid=${userId}; path=/; httpOnly; expires=${getCookieExpires()}`)
+                }
                 res.end(
                     JSON.stringify(blogData)
                 )
@@ -98,7 +114,9 @@ const serverHandle = (req, res) => {
         const userResult = handleUserRouter(req, res);
         if (userResult) {
             userResult.then(userData => {
-                res.setHeader('Set-Cookie', `username=${username}; httpOnly; expires=${getCookieExpires()}`)
+                if (needSetCookie) {
+                    res.setHeader('Set-Cookie', `userid=${userId}; path=/; httpOnly; expires=${getCookieExpires()}`)
+                }
                 res.end(
                     JSON.stringify(userData)
                 )

@@ -196,3 +196,6 @@ res.setHeader("Access-Control-Allow-Credentials", true);
 ```
 res.setHeader('Set-Cookie', `username=${username}; httpOnly; expires=${getCookieExpires()}`)
 ```
+14. 使用session存储用户信息
+问题：存储在cookie中信息会暴露，不安全
+解决：cookie中存储userid,server端存储用户信息
