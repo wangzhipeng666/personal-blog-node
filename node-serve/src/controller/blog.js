@@ -28,7 +28,6 @@ const newBlog = (blogData = {}) => {
     `
 
     return exec(sql).then(insertData => {
-        console.log('insertData:', insertData);
         return {
             id: insertData.insertId
         }
