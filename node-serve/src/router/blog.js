@@ -20,9 +20,10 @@ const handleBlogRouter = (req, res) => {
         const loginCheckResult = loginCheck(req)
         if (loginCheckResult) {
             // 未登录
-            return loginCheck
+            return loginCheckResult
         }
-        author = req.session.username || ''
+        // 强制查询自己的博客
+        // author = req.session.username
 
         const result = getList(author, keyword)
         return result.then(listData => {
