@@ -202,3 +202,5 @@ res.setHeader('Set-Cookie', `username=${username}; httpOnly; expires=${getCookie
 
 17. 将session存入redis
 - 安装配置redis
+- 将session存储到redis
+- 统一的登录验证处理
