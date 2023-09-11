@@ -23,5 +23,6 @@ if (env === 'dev') {
 
 
 module.exports = {
-    MYSQL_CONF
+    MYSQL_CONF,
+    REDIS_CONF,
 }
