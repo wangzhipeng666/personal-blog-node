@@ -190,12 +190,15 @@ res.setHeader("Access-Control-Allow-Origin",req.headers.origin);
 // 设置cookie允许跨域
 res.setHeader("Access-Control-Allow-Credentials", true);
 ```
-14. 后端操作cookie
+15. 后端操作cookie
 - httpOnly可以进行限制，防止前端修改cookie信息
 - expires设置过期时间
 ```
 res.setHeader('Set-Cookie', `username=${username}; httpOnly; expires=${getCookieExpires()}`)
 ```
-14. 使用session存储用户信息
+16. 使用session存储用户信息
 问题：存储在cookie中信息会暴露，不安全
 解决：cookie中存储userid,server端存储用户信息
+
+17. 将session存入redis
+- 安装配置redis
