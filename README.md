@@ -204,3 +204,19 @@ res.setHeader('Set-Cookie', `username=${username}; httpOnly; expires=${getCookie
 - 安装配置redis
 - 将session存储到redis
 - 统一的登录验证处理
+18. 解决跨域的另一种方案
+nginx反向代理 - 修改nginx配置文件
+```
+sudo vim /usr/local/etc/nginx/nginx.conf
+
+listen       8000;
+
+location / {
+   proxy_pass  http://localhost:8001;
+}
+location /api/ {
+    proxy_pass http://localhost:8000;
+    proxy_set_header Host_$host;
+}
+```
+nginx -t 进行测试配置是否正确。
