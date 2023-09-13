@@ -17,6 +17,7 @@ const getList = (author, keyword) => {
 
 const newBlog = (blogData = {}) => {
     // blogData 是一个博客对象，包含 title content author 属性
+    // 使用xss插件防止xss攻击
     const title = xss(blogData.title)
     const content = xss(blogData.content)
     const author = blogData.author
