@@ -240,3 +240,4 @@ IO性能瓶颈，使用stream提高性能
     * 0 * * * sh /Users/cmt/Desktop/personal-blog-node/node-serve/src/utils/copy.sh
    ```
 - 执行crontab -l 可以查看所有命令列表
+22. 使用readline分析日志内容
