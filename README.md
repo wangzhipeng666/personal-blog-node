@@ -232,3 +232,11 @@ nginx -t 进行测试配置是否正确。
 预防措施：将密码加密，即使拿到密码也不知道明文
 20. 记录日志
 IO性能瓶颈，使用stream提高性能
+21. 使用crontab拆分日志文件
+- 创建copy.sh编写命令
+- 控制台执行crontab -e 
+- 编辑命令
+   ```
+    * 0 * * * sh /Users/cmt/Desktop/personal-blog-node/node-serve/src/utils/copy.sh
+   ```
+- 执行crontab -l 可以查看所有命令列表
