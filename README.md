@@ -241,3 +241,4 @@ IO性能瓶颈，使用stream提高性能
    ```
 - 执行crontab -l 可以查看所有命令列表
 22. 使用readline分析日志内容
+在项目中执行 node src/utils/readline.js 命令
