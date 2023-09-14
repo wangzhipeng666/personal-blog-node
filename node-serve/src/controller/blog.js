@@ -35,4 +35,11 @@ const newBlog = (blogData = {}) => {
     })
 }
 
-module.exports = { getList, newBlog }
+const getDetail = (id) => {
+    const sql = `select * from blogs where id='${id}'`
+    return exec(sql).then(rows => {
+        return rows[0]
+    })
+}
+
+module.exports = { getList, newBlog, getDetail }

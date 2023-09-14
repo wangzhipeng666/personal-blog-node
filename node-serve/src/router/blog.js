@@ -1,4 +1,4 @@
-const { getList, newBlog } = require('../controller/blog');
+const { getList, newBlog, getDetail } = require('../controller/blog');
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 // 统一的登录验证函数
@@ -12,6 +12,7 @@ const loginCheck = (req) => {
 
 const handleBlogRouter = (req, res) => {
     const method = req.method
+    const id = req.query.id
 
     // 获取博客列表
     if (method === 'GET' && req.path === '/api/blog/list') {
@@ -44,6 +45,14 @@ const handleBlogRouter = (req, res) => {
         return result.then(data => {
             return new SuccessModel(data)
         }) 
+    }
+
+    // 获取博客详情
+    if (method === 'GET' && req.path === '/api/blog/detail') {
+        const result = getDetail(id)
+        return result.then(data => {
+            return new SuccessModel(data)
+        })
     }
 }
 
