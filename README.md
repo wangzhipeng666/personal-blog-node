@@ -216,7 +216,7 @@ location / {
 }
 location /api/ {
     proxy_pass http://localhost:8000;
-    proxy_set_header Host_$host;
+    proxy_set_header Host $host;
 }
 ```
 nginx -t 进行测试配置是否正确。
