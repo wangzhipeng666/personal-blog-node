@@ -42,4 +42,20 @@ const getDetail = (id) => {
     })
 }
 
-module.exports = { getList, newBlog, getDetail }
+const updateBlog = (id, blogData = {}) => {
+    const title = xss(blogData.title)
+    const content = xss(blogData.content)
+
+    const sql = `
+        update blogs set title='${title}', content='${content}' where id=${id}
+    `
+
+    return exec(sql).then(updateData => {
+        if (updateData.affectedRows > 0) {
+            return true
+        }
+        return false
+    })
+}
+
+module.exports = { getList, newBlog, getDetail, updateBlog }
