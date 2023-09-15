@@ -19,3 +19,7 @@ npm install nodemon cross-env --save-dev
     "dev": "cross-env NODE_ENV=dev nodemon ./bin/www"
 },
 ```
+5. 安装插件
+```
+npm install mysql xss --save
+```
