@@ -27,3 +27,7 @@ npm install mysql xss --save
 ```
 npm i express-session --save
 ```
+7. 使用redis存储session
+```
+npm i redis connect-redis --save
+```
