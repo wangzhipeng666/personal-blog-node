@@ -32,3 +32,5 @@ npm i express-session --save
 npm i redis connect-redis --save
 ```
 8. 登录中间件
+
+9. 配置路由
