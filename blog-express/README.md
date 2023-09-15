@@ -23,3 +23,7 @@ npm install nodemon cross-env --save-dev
 ```
 npm install mysql xss --save
 ```
+6. express处理session
+```
+npm i express-session --save
+```
