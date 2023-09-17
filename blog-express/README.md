@@ -16,7 +16,8 @@ npm install nodemon cross-env --save-dev
 4. 配置命令
 ```
 "scripts": {
-    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www"
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www",
+    "prd": "cross-env NODE_ENV=production nodemon ./bin/www"
 },
 ```
 5. 安装插件
@@ -37,3 +38,23 @@ npm i redis connect-redis --save
 
 10. 使用morgan写日志
 https://github.com/expressjs/morgan
+
+11. express解决跨域
+- 安装cors
+```
+npm install cors --save-dev
+
+const cors = require('cors');
+app.use(cors());
+```
+- 手动实现
+```
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin",req.headers.origin)
+    res.header("Access-Control-Allow-Credentials", true)
+    res.header("Access-Control-Request-Method", "PUT,POST,GET,DELETE,OPTIONS")
+    res.header("Access-Control-Allow-Headers", "Content-Type")
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS")
+    next();
+});
+```
