@@ -33,3 +33,7 @@ npm i koa-generic-session --save
 npm i redis koa-redis --save
 ```
 redis版本过高会导致连接不上服务
+8. 使用koa-morgan写日志
+```
+npm i koa-morgan --save
+```
